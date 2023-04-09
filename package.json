@@ -1,0 +1,14 @@
+{
+  "name": "shaqbot",
+  "version": "1.0.0",
+  "description": "ShaqBot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabe",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.9.0"
+  }
+}
