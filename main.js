@@ -1,8 +1,18 @@
-const { Client, Events, GatewayIntentBits } = require("discord.js");
+const { Client, Events, GatewayIntentBits, Collection } = require("discord.js");
 const { disc_bot_token } = require('./c.json');
+
 
 // new instance
 const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]});
+
+// requests command files in directory commands
+const fs = require("fs");
+client.commands = new Collection();
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for(const file of commandFiles){
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name,command);
+}
 
 // bot log on start
 client.once("ready", () => {
@@ -23,15 +33,10 @@ client.on("messageCreate", message => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
 
-  if (command === 'ping')
-  {
-      //const channel = client.channels.cache.get('💦-cum-zone-general')
-      message.channel.send('pong');
+  if(command == "youtube"){
+    client.commands.get("youtube").execute(message, args);
   }
-  else if(command == 'bruh')
-  {
-      message.channel.send('server');
-  }
+ 
 
 
 })
