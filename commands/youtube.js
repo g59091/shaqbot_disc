@@ -5,11 +5,12 @@ module.exports={
 
         let role = message.guild.roles.cache.find(r => r.name === "Fecal Personnel");
 
-        if(role){
+        if (role) 
+        {
             message.channel.send("You're brown.");
         }
-        else{
-        message.channel.send("https://www.youtube.com/watch?v=MFsoZ__2WzQ");
+        else {
+            message.channel.send("https://www.youtube.com/watch?v=MFsoZ__2WzQ");
         }
     }
 }
