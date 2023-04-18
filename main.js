@@ -36,7 +36,9 @@ client.on("messageCreate", message => {
   if(command == "youtube"){
     client.commands.get("youtube").execute(message, args);
   }
-
+  else if(command == "rules"){
+    client.commands.get("rules").execute(message, args);
+  }
 })
 
 // login using token
