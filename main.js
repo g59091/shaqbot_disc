@@ -39,6 +39,15 @@ client.on("messageCreate", message => {
   else if(command == "rules"){
     client.commands.get("rules").execute(message, args);
   }
+  else if(command == "clear"){
+    client.commands.get("clear").execute(message, args);
+  }
+  else if(command == "kick"){
+    client.commands.get("kick").execute(message, args);
+  }
+  else if(command == "ban"){
+    client.commands.get("ban").execute(message, args);
+  }
 })
 
 // login using token
