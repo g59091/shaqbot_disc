@@ -32,7 +32,7 @@ client.on("messageCreate", message => {
   const commandProvided = args.shift().toLowerCase();
   const availableCommands = [
     "youtube", "clear", 
-    "rules", "kick", "ban"
+    "rules", "kick", "ban", "mute",
   ]
   // execute command if available 
   if (availableCommands.includes(commandProvided))
