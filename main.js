@@ -37,7 +37,13 @@ client.on("messageCreate", message => {
   // execute command if available 
   if (availableCommands.includes(commandProvided))
     client.commands.get(commandProvided).execute(message, args);
-})
+});
 
+client.on("guildMemberAdd", guildMember => {
+  const welcomeRole = guildMember.guild.roles.cache.find(role => role.name === "Shadow Realm");
+
+  guildMember.roles.add(welcomeRole);
+  guildMember.guild.channels.cache.get("1099731159191130132").send(`Welcome,go fuck yourself <@${guildMember.user.id}>`);
+});
 // login using token
 client.login(disc_bot_token)
