@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js")
+const { EmbedBuilder } = require("discord.js");
 module.exports = {
   name : "rules",
   description : "rules for the bruh server",
