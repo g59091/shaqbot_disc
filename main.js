@@ -1,5 +1,6 @@
 const { Client, Events, GatewayIntentBits, Collection, Partials } = require("discord.js");
 const { disc_bot_token } = require('./c.json');
+const memberCounter = require("./counters/membercounter.js");
 const prefix = ";"
 
 // new client instance
@@ -27,8 +28,9 @@ for (const file of commandFiles) {
 
 // on client startup
 client.once("ready", () => {
-  console.log("ShaqBot up & running!")
-})
+  console.log("ShaqBot up & running!");
+  memberCounter(client);
+});
 
 // on client run
 client.on("messageCreate", message => {
@@ -49,7 +51,8 @@ client.on("guildMemberAdd", guildMember => {
   const welcomeRole = guildMember.guild.roles.cache.find(role => role.name === "Shadow Realm");
 
   guildMember.roles.add(welcomeRole);
-  guildMember.guild.channels.cache.get("1099731159191130132").send(`Welcome,go fuck yourself <@${guildMember.user.id}>`);
+  var testingChannel = guildMember.guild.channels.cache.find(channel => channel.name === "🤖-shaqbot-testing").id;
+  guildMember.guild.channels.cache.get(testingChannel).send(`Welcome,go fuck yourself <@${guildMember.user.id}>`);
 });
 // login using token
 client.login(disc_bot_token)
