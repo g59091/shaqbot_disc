@@ -13,6 +13,6 @@ module.exports = {
       )
       .setImage("https://cdn.discordapp.com/attachments/572972111706980353/1097703702409793616/computer_times.jpg")
       .setFooter({text: "Make sure to read all the rules big nose dummy"});
-    message.channel.send({ embeds: [rulesEmbed] });
+    message.channel.send({embeds: [rulesEmbed]});
   }
 }

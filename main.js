@@ -39,20 +39,21 @@ client.on("messageCreate", message => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const commandProvided = args.shift().toLowerCase();
   const availableCommands = [
-    "youtube", "clear", 
-    "rules", "kick", "ban", "mute", "reactionrole"
+    "youtube", "clear", "rules", "kick",
+    "ban", "mute", "reactionrole"
   ];
   // execute command if available 
   if (availableCommands.includes(commandProvided))
     client.commands.get(commandProvided).execute(message, args, client);
 });
 
+// on client join
 client.on("guildMemberAdd", guildMember => {
   const welcomeRole = guildMember.guild.roles.cache.find(role => role.name === "Shadow Realm");
-
   guildMember.roles.add(welcomeRole);
   var testingChannel = guildMember.guild.channels.cache.find(channel => channel.name === "🤖-shaqbot-testing").id;
   guildMember.guild.channels.cache.get(testingChannel).send(`Welcome,go fuck yourself <@${guildMember.user.id}>`);
 });
+
 // login using token
 client.login(disc_bot_token)
