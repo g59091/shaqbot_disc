@@ -40,7 +40,7 @@ client.on("messageCreate", message => {
   const commandProvided = args.shift().toLowerCase();
   const availableCommands = [
     "youtube", "clear", "rules", "kick",
-    "ban", "mute", "reactionrole"
+    "ban", "mute", "reactionrole", "play", "stop"
   ];
   // execute command if available 
   if (availableCommands.includes(commandProvided))
