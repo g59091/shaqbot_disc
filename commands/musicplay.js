@@ -22,67 +22,51 @@ module.exports = {
         return true;
       return false;
     }
-
-    if (validURL(args[0])) {
-      const  connection = await voiceChannel.join();
-      const stream  = ytdl(args[0], {filter: 'audioonly'});
-      connection.play(stream, {seek: 0, volume: 1})
-      .on('finish', () =>{
-        voiceChannel.leave();
-        message.channel.send('leaving channel');
-      });
-
-      await message.reply(`:thumbsup: Now Playing ***Your Link!***`);
-      return;
-    }
     
     console.log(voiceChannel.name);
-    //const  connection = await voiceChannel.join();
     const connection = joinVoiceChannel({
       channelId: voiceChannel.id, 
       guildId: voiceChannel.guild.id,
       adapterCreator: voiceChannel.guild.voiceAdapterCreator
     });
     const player = createAudioPlayer();
-    
 
-    //finds the first video in the ytSearch function 
-    const videoFinder = async (query) => {
-      const videoResult = await ytSearch(query);
-      return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
+    // defining stream based on if validurl 
+    var stream = "";
+    var video = "";
+    if (!validURL(args[0])) {
+      //finds the first video in the ytSearch function 
+      const videoFinder = async (query) => {
+        const videoResult = await ytSearch(query);
+        return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
+      }
+      //if no video is found display no results found thing 
+      var video = await videoFinder(args.join(' '));
+      if (!video) {
+        message.channel.send('No video results found');
+        return;
+      }
+      //function meant to play/stream the valid youtube link with the audio only filter then excutes the finish fucntion to then leave saying fuck you
+      var stream  = ytdl(video.url, {filter: 'audioonly'});
+    } else { 
+      var stream  = ytdl(args[0], {filter: 'audioonly'});
     }
-    //if no video is found display no results found thing 
-    const video = await videoFinder(args.join(' '));
-    if (!video) {
-      message.channel.send('No video results found');
-      return;
-    }
-    //function meant to play/stream the valid youtube link with the audio only filter then excutes the finish fucntion to then leave saying fuck you
-     
-    const stream  = ytdl(video.url, {filter: 'audioonly'});
-    
+
     const resource = createAudioResource(stream);
     player.play(resource);
     connection.subscribe(player);
-    //console.log(resource);
     player.on("error" , (error) => console.error(error));
-    /* player.on(AudioPlayerStatus.Playing, () =>{
-        message.channel.send('now playing');
-    });*/
+    player.on(AudioPlayerStatus.Playing, () =>{
+      //console.log(resource);
+      //message.channel.send('now playing');
+    });
     player.on(AudioPlayerStatus.Idle , () =>{
         connection.disconnect();
-    } );
-
-    /*
-    connection.play(stream, {seek: 0, volume: 1})
-    .on('finish', () =>{
-      voiceChannel.leave();
-      message.channel.send("leaving channel");
     });
-    */
 
     //wait for the video to be found then when the video is played send the thumps up now playing thing
-    await message.reply(`:thumbsup: Now Playing ***${video.title}***`);
+   //var videoTitle = `***${video.title}***`;
+    //await message.reply(`:thumbsup: Now Playing` + (validURL(args[0])) ? ` ` : videoTitle);
     return;
     }
 }
