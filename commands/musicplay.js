@@ -65,7 +65,7 @@ module.exports = {
     });
 
     //wait for the video to be found then when the video is played send the thumps up now playing thing
-   //var videoTitle = `***${video.title}***`;
+    //var videoTitle = `***${video.title}***`;
     //await message.reply(`:thumbsup: Now Playing` + (validURL(args[0])) ? ` ` : videoTitle);
     return;
     }
