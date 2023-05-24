@@ -1,6 +1,5 @@
 const { Client, Events, GatewayIntentBits, Collection, Partials } = require("discord.js");
 const { disc_bot_token } = require('./c.json');
-const prefix = ";"
 
 // new client instance
 const client = new Client({intents: [
