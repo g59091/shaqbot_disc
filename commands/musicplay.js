@@ -7,7 +7,7 @@ module.exports = {
   name: 'play',
   description: 'Joins and plays a video from youtube',
   async execute(message, args, client) {
-   // console.log(message);
+    //console.log(message);
     const voiceChannel = message.member.voice.channel;
 
     if (!voiceChannel) return message.channel.send('You need to be in a channel to execute this command!');
@@ -18,12 +18,10 @@ module.exports = {
 
     const validURL = (str) =>{
       var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-      if (regex.test(str))
-        return true;
-      return false;
+      return (regex.test(str)) ? true : false;
     }
     
-    console.log(voiceChannel.name);
+    //console.log(voiceChannel.name);
     const connection = joinVoiceChannel({
       channelId: voiceChannel.id, 
       guildId: voiceChannel.guild.id,
@@ -33,21 +31,19 @@ module.exports = {
 
     // defining stream based on if validurl 
     var stream = "";
-    var video = "";
     if (!validURL(args[0])) {
-      //finds the first video in the ytSearch function 
+
+      // finds the first video in the ytSearch function 
       const videoFinder = async (query) => {
         const videoResult = await ytSearch(query);
         return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
       }
-      //if no video is found display no results found thing 
-      var video = await videoFinder(args.join(' '));
-      if (!video) {
-        message.channel.send('No video results found');
-        return;
-      }
-      //function meant to play/stream the valid youtube link with the audio only filter then excutes the finish fucntion to then leave saying fuck you
-      var stream  = ytdl(video.url, {filter: 'audioonly'});
+      // if no video is found display no results found thing 
+      var videoFind = await videoFinder(args.join(' '));
+      if (!videoFind) return message.channel.send('No video results found');
+
+      // function meant to play/stream the valid youtube link with the audio only filter then excutes the finish fucntion to then leave saying fuck you
+      var stream  = ytdl(videoFind.url, {filter: 'audioonly'});
     } else { 
       var stream  = ytdl(args[0], {filter: 'audioonly'});
     }
@@ -64,11 +60,11 @@ module.exports = {
         connection.disconnect();
     });
 
-    //wait for the video to be found then when the video is played send the thumps up now playing thing
+    // wait for the video to be found then when the video is played send the thumps up now playing thing
     //var videoTitle = `***${video.title}***`;
     //await message.reply(`:thumbsup: Now Playing` + (validURL(args[0])) ? ` ` : videoTitle);
     return;
-    }
+  }
 }
 
  
