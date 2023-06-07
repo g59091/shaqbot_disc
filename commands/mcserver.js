@@ -6,6 +6,7 @@ const { our_server_ip } = require("../c.json");
 module.exports = {
   name: 'mcserver',
   aliases: ["mc", "mcs", "minecraft"],
+  cooldown: 10,
   description: 'get information about a minecraft server',
   async execute(message, args , client){
     if (!args[0]) return message.channel.send('Please enter a minecraft server ip');
