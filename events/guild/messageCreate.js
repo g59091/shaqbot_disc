@@ -7,7 +7,7 @@ module.exports = (client, message) => {
 
   const args = message.content.slice(prefix.length).split(/ +/);
   const commandProvided = args.shift().toLowerCase();
-  const commandGet = client.commands.find(a => a.aliases && a.aliases.includes(commandProvided));
+  var commandGet = client.commands.find(a => a.aliases && a.aliases.includes(commandProvided));
   if (!commandGet && available_commands.includes(commandProvided))
     commandGet = client.commands.get(commandProvided); 
 
@@ -34,7 +34,12 @@ module.exports = (client, message) => {
 
   try{
     // execute command if available 
-    commandGet.execute(message, args, client);
+    const musicCommands = ["play", "skip", "stop"];
+    if(musicCommands.includes(commandProvided)){
+      commandGet.execute(message, args, client, commandProvided);
+    } else {
+      commandGet.execute(message, args, client);
+    }
   } 
   catch (err){
       message.reply("There was an error trying to execute this command!");

@@ -4,7 +4,7 @@ const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerSta
 //const { Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
-  name: 'play',
+  name: 'old_play',
   description: 'Joins and plays a video from youtube',
   async execute(message, args, client) {
     //console.log(message);
@@ -52,17 +52,17 @@ module.exports = {
     player.play(resource);
     connection.subscribe(player);
     player.on("error" , (error) => console.error(error));
-    player.on(AudioPlayerStatus.Playing, () =>{
+    player.on(AudioPlayerStatus.Playing, () => {
       //console.log(resource);
       //message.channel.send('now playing');
     });
-    player.on(AudioPlayerStatus.Idle , () =>{
+    player.on(AudioPlayerStatus.Idle , () => {
         connection.disconnect();
     });
 
     // wait for the video to be found then when the video is played send the thumps up now playing thing
-    //var videoTitle = `***${video.title}***`;
-    //await message.reply(`:thumbsup: Now Playing` + (validURL(args[0])) ? ` ` : videoTitle);
+    // var videoTitle = `***${video.title}***`;
+    // await message.reply(`:thumbsup: Now Playing` + (validURL(args[0])) ? ` ` : videoTitle);
     return;
   }
 }

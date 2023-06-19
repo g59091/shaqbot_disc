@@ -1,6 +1,6 @@
 const {getVoiceConnection } = require("@discordjs/voice");
 module.exports = {
-  name: 'stop',
+  name: 'old_stop',
   description: 'stop the bot and leave the channel',
   async execute(message, args) {
     const voiceChannel = message.member.voice.channel;
