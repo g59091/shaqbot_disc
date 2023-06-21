@@ -1,7 +1,7 @@
 module.exports = {
   name: "clear",
   description: "clear my messages",
-  
+  permissions: ["ADMINISTRATOR", "MANAGE_MESSAGES"],
   execute(message, args) {
     if (!args[0] || isNaN(args[0]))
       return message.reply("please enter a real number");

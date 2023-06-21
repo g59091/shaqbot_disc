@@ -1,5 +1,5 @@
-const { prefix, available_commands } = require('../../c.json');
-const { Collection } = require("discord.js");
+const { prefix, available_commands, all_permissions } = require('../../c.json');
+const { Collection, PermissionsBitField } = require("discord.js");
    
 const cooldowns = new Map();
 module.exports = (client, message) => {  
@@ -11,7 +11,22 @@ module.exports = (client, message) => {
   if (!commandGet && available_commands.includes(commandProvided))
     commandGet = client.commands.get(commandProvided); 
 
-  if(!cooldowns.has(commandGet.name)){
+  if (commandGet.permissions.length) {
+    let invalidPerms = []
+    for (const [perm, permValue] of Object.entries(PermissionsBitField.Flags)) {
+      if (!all_permissions.includes(perm)) {
+        return console.log(`Invalid Permissions ${perm}`);
+      }
+      if (!message.member.permissions.has(perm)) {
+        invalidPerms.push(perm);
+      }
+    }
+    if (invalidPerms.length) {
+      return message.channel.send(`Missing Permissions: \`${invalidPerms}\``);
+    }
+  }
+
+  if (!cooldowns.has(commandGet.name)) {
     cooldowns.set(commandGet.name, new Collection());
   }
 
@@ -21,7 +36,7 @@ module.exports = (client, message) => {
 
   if(time_stamps.has(message.author.id)){
     const expiration_time = time_stamps.get(message.author.id) + cooldown_amount;
-    if(current_time < expiration_time){
+    if(current_time < expiration_time) {
       const time_left = (expiration_time - current_time) / 1000;
       return message.reply(`Please wait ${time_left.toFixed(1)} more seconds before using ${commandGet.name}`);
     }
