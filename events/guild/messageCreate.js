@@ -11,53 +11,51 @@ module.exports = (client, message) => {
   if (!commandGet && available_commands.includes(commandProvided))
     commandGet = client.commands.get(commandProvided); 
 
-  if (commandGet.permissions.length) {
+  // handle: user invalid/valid perms
+  if ("permissions" in commandGet) {
     let invalidPerms = []
     for (const [perm, permValue] of Object.entries(PermissionsBitField.Flags)) {
-      if (!all_permissions.includes(perm)) {
+      if (!all_permissions.includes(perm))
         return console.log(`Invalid Permissions ${perm}`);
-      }
-      if (!message.member.permissions.has(perm)) {
+      if (!message.member.permissions.has(perm))
         invalidPerms.push(perm);
-      }
     }
-    if (invalidPerms.length) {
+
+    if (invalidPerms.length)
       return message.channel.send(`Missing Permissions: \`${invalidPerms}\``);
-    }
   }
 
-  if (!cooldowns.has(commandGet.name)) {
+  // handle: user command cooldowns
+  if (!cooldowns.has(commandGet.name))
     cooldowns.set(commandGet.name, new Collection());
-  }
 
   const current_time = Date.now();
   const time_stamps = cooldowns.get(commandGet.name);
   const cooldown_amount = (commandGet.cooldown) * 1000;
 
-  if(time_stamps.has(message.author.id)){
+  if (time_stamps.has(message.author.id)) {
     const expiration_time = time_stamps.get(message.author.id) + cooldown_amount;
-    if(current_time < expiration_time) {
+    if (current_time < expiration_time) {
       const time_left = (expiration_time - current_time) / 1000;
       return message.reply(`Please wait ${time_left.toFixed(1)} more seconds before using ${commandGet.name}`);
     }
   }
 
-  //If the author's id is not in time_stamps then add them with the current time.
+  // set: time for user based on current time
   time_stamps.set(message.author.id, current_time);
-  //Delete the user's id once the cooldown is over.
+  // delete: time for user once cooldown over
   setTimeout(() => time_stamps.delete(message.author.id), cooldown_amount);
 
-  try{
-    // execute command if available 
+  // handle: passing the command parameter for music commands 
+  try {
     const musicCommands = ["play", "skip", "stop"];
-    if(musicCommands.includes(commandProvided)){
+    if (musicCommands.includes(commandProvided))
       commandGet.execute(message, args, client, commandProvided);
-    } else {
+    else
       commandGet.execute(message, args, client);
-    }
   } 
-  catch (err){
-      message.reply("There was an error trying to execute this command!");
-      console.log(err);
+  catch (err) {
+    message.reply("There was an error trying to execute this command!");
+    console.log(err);
   }
 }

@@ -12,11 +12,11 @@ module.exports = {
     if (!args[0]) return message.channel.send('Please enter a minecraft server ip');
     var mcaddress = args[0];
     
-    if (args[0] == "ours") {
+    if (args[0] == "ours")
       mcaddress = our_server_ip;
-    } else {
+    else {
       if (!args[1]) return message.channel.send('Please enter a minecraft server port');
-      mcaddress.concat(":", args[1] );
+      mcaddress.concat(":", args[1]);
     }
     
     const mcstatus = await request(`https://api.mcstatus.io/v2/status/java/${mcaddress}`, { method: "GET"});

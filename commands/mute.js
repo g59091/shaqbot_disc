@@ -14,8 +14,7 @@ module.exports = {
     // standard mute, permanent role change
     memberTarget.roles.remove(mainRole.id);
     memberTarget.roles.add(muteRole.id);
-    if (!args[1])
-      return message.channel.send(`<@${memberTarget.user.id}> has been muted.`);
+    if (!args[1]) return message.channel.send(`<@${memberTarget.user.id}> has been muted.`);
 
     // timed mute, based on seconds provided in second arg
     message.channel.send(`<@${memberTarget.user.id}> has been muted for ${ms(ms(args[1]))}`);
