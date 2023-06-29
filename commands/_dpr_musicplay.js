@@ -1,7 +1,6 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } = require("@discordjs/voice");
-//const { Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: 'old_play',
@@ -42,7 +41,7 @@ module.exports = {
       var videoFind = await videoFinder(args.join(' '));
       if (!videoFind) return message.channel.send('No video results found');
 
-      // function meant to play/stream the valid youtube link with the audio only filter then excutes the finish fucntion to then leave saying fuck you
+      // function meant to play/stream the valid youtube link with the audio only filter then excutes the finish fucntion to then leave saying fug you :D
       var stream  = ytdl(videoFind.url, {filter: 'audioonly'});
     } else { 
       var stream  = ytdl(args[0], {filter: 'audioonly'});

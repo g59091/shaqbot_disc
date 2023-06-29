@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 module.exports = {
     name: "suggestions",
-    aliases: ["suggest"],
+    aliases: ["suggest", "sugma"],
     permissions: [],
     cooldown: 2,
     description: "creates a suggestion in the suggestion channel",
