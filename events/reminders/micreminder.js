@@ -8,6 +8,7 @@ module.exports = async (client) =>{
   // timer for eight minutes
   const timerMinutes = 8;
   const timerCheck = timerMinutes * 60 * 1000;
+  // todo: we need to comment out (and scrub) all personal names from repo
   const definitelyNotJules = client.users.cache.find(u => u.tag === "Riceseller#5066").id;
   // const definitelyNotCarlos = client.users.cache.find(u => u.username === "fulaa").id; 
 
@@ -31,7 +32,7 @@ module.exports = async (client) =>{
     });
     // play "microphone check" mp3, bottom text
     const player = createAudioPlayer();
-    const micCheckMP3 = path.resolve() + path.sep + "media" + path.sep + "shaq_jules_check.mp3";
+    const micCheckMP3 = path.resolve() + path.sep + "media" + path.sep + "shaq_reminder_check.mp3";
     const resource = createAudioResource(micCheckMP3);
 
     player.play(resource);

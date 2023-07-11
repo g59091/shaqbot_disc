@@ -1,8 +1,9 @@
 const { server_id } = require('../c.json');
 module.exports = async (client) =>{
   const guild = client.guilds.cache.get(server_id);
-  // timer for five minutes
-  const timerCheck = 300000;
+  // timer for eight minutes
+  const timerMinutes = 8;
+  const timerCheck = timerMinutes * 60 * 1000;
   
   setInterval(() => {
     const memberCount = guild.memberCount;

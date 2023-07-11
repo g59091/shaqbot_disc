@@ -16,7 +16,7 @@ module.exports = {
             .setAuthor({name: message.author.username, iconURL: message.author.displayAvatarURL({ dynamic: true })})
             .setDescription(messageArgs)
 
-        const messageEmbed = await sug_channel.send({ embeds: [suggestionEmbed] }).then((msg) => {
+        await sug_channel.send({ embeds: [suggestionEmbed] }).then((msg) => {
             message.delete();
             msg.react(`👍`);
             msg.react(`👎`);

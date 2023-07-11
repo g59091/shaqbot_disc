@@ -10,7 +10,7 @@ module.exports = {
   aliases: ["skip", "stop"],
   cooldown: 2,
   description: "Joins and plays a video from youtube",
-  async execute(message, args, client, cmd) {
+  async execute(message, args, _, cmd) {
     // handle: perm check
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.channel.send('You need to be in a channel to execute this command!');
