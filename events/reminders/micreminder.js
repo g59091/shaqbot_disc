@@ -9,8 +9,9 @@ module.exports = async (client) =>{
   const timerMinutes = 8;
   const timerCheck = timerMinutes * 60 * 1000;
   // todo: we need to comment out (and scrub) all personal names from repo
-  const definitelyNotJules = client.users.cache.find(u => u.tag === "Riceseller#5066").id;
-  // const definitelyNotCarlos = client.users.cache.find(u => u.username === "fulaa").id; 
+  var definitelyNotJules = client.users.cache.find(u => u.tag === "Riceseller#5066");
+  if (definitelyNotJules) definitelyNotJules = definitelyNotJules.id;
+  //const definitelyNotCarlos = client.users.cache.find(u => u.username === "fulaa").id; 
 
   setInterval(() => {
     // check voice channel for specific user

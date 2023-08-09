@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 module.exports = {
-  name: "reactionrole",
+  name: "old_reactionrole",
   description: "This command enables a role selection ",
   async execute(message, args, client) {
     const channel = message.guild.channels.cache.find(channel => channel.name === "🤖-shaqbot-testing").id;
