@@ -23,7 +23,7 @@ module.exports = async (client) =>{
       return channel;
     }, null);
     // check if user is not muted
-    if (userInGuild.voice.selfMute) return console.debug("User is already muted.");
+    if (userInGuild && userInGuild.voice.selfMute) return console.debug("User is already muted.");
 
     // check if bot can make/start connection/player
     const connection = joinVoiceChannel({

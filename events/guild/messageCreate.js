@@ -1,8 +1,9 @@
 const { prefix, available_commands, all_permissions } = require('../../c.json');
 const { Collection, PermissionsBitField } = require("discord.js");
-   
+const shaqModel = require("../../models/shaqschema");
+
 const cooldowns = new Map();
-module.exports = (client, message) => {  
+module.exports = async (client, message) => {  
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(/ +/);
@@ -10,6 +11,23 @@ module.exports = (client, message) => {
   var commandGet = client.commands.find(a => a.aliases && a.aliases.includes(commandProvided));
   if (!commandGet && available_commands.includes(commandProvided))
     commandGet = client.commands.get(commandProvided); 
+  
+  // handle: shaqSchema data for each profile
+  var profileInfo;
+  try {
+    profileInfo = await shaqModel.findOne({ userId: message.author.id });
+    if (!profileInfo) {
+      var profileNew = await shaqModel.create({ 
+        userId: message.author.id,
+        serverId: message.guild.id,
+        sCoins: 25,
+        bank: 0
+       });
+       profileNew.save();
+    }
+  } catch(err) {
+    console.log(err);
+  }
 
   // handle: user invalid/valid perms
   if ("permissions" in commandGet) {
@@ -50,9 +68,9 @@ module.exports = (client, message) => {
   try {
     const musicCommands = ["play", "skip", "stop"];
     if (musicCommands.includes(commandProvided))
-      commandGet.execute(message, args, client, commandProvided);
+      commandGet.execute(message, args, client, commandProvided, profileInfo);
     else
-      commandGet.execute(message, args, client);
+      commandGet.execute(message, args, client, profileInfo);
   } 
   catch (err) {
     message.reply("There was an error trying to execute this command!");

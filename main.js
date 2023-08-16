@@ -15,13 +15,6 @@ const client = new Client({intents: [
   Partials.Reaction
 ]});
 
-client.commands = new Collection();
-client.events = new Collection();
-
-["command_handler", "event_handler"].forEach(handler =>{
-  require(`./handlers/${handler}`)(client);
-})
-
 // MongoDB DataBase Connection
 mongoose.connect(mongodb_srv, {
   useNewUrlParser: true,
@@ -31,6 +24,13 @@ mongoose.connect(mongodb_srv, {
 }).catch((err) => {
   console.log(err);
 });
+
+client.commands = new Collection();
+client.events = new Collection();
+
+["command_handler", "event_handler"].forEach(handler =>{
+  require(`./handlers/${handler}`)(client);
+})
 
 
 // login using token
