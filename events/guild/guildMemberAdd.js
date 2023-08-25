@@ -4,8 +4,8 @@ console.log("schema add has begun");
 module.exports = async (client, member) => {
    console.log("building a profile" + JSON.stringify(client).length);
    var profile =  await shaqModel.create({
-        userId: member.id,
-        serverId: member.guild.id,
+        userName: member.author.username,
+        userId: member.author.id,
         sCoins: 25,
         bank: 0
    });

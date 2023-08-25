@@ -6,20 +6,16 @@ const cooldowns = new Map();
 module.exports = async (client, message) => {  
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const commandProvided = args.shift().toLowerCase();
-  var commandGet = client.commands.find(a => a.aliases && a.aliases.includes(commandProvided));
-  if (!commandGet && available_commands.includes(commandProvided))
-    commandGet = client.commands.get(commandProvided); 
-  
   // handle: shaqSchema data for each profile
   var profileInfo;
   try {
     profileInfo = await shaqModel.findOne({ userId: message.author.id });
-    if (!profileInfo) {
+    if (!profileInfo) {     
+      console.log("building a new profile model");
+      //console.log(message.author);
       var profileNew = await shaqModel.create({ 
+        userName: message.author.username,
         userId: message.author.id,
-        serverId: message.guild.id,
         sCoins: 25,
         bank: 0
        });
@@ -29,6 +25,12 @@ module.exports = async (client, message) => {
     console.log(err);
   }
 
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const commandProvided = args.shift().toLowerCase();
+  var commandGet = client.commands.find(a => a.aliases && a.aliases.includes(commandProvided));
+  if (!commandGet && available_commands.includes(commandProvided))
+    commandGet = client.commands.get(commandProvided);
+  
   // handle: user invalid/valid perms
   if ("permissions" in commandGet) {
     let invalidPerms = []
