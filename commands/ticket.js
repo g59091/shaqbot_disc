@@ -37,14 +37,16 @@ module.exports = {
       );
   
       collector.on("collect", (reaction, user) => {
-        switch (reaction.emoji.name) {
-          case "🔒":
-            ticketChannel.permissionOverwrites.edit(message.author, { SendMessages: false });
-            break;
-          case "⛔":
-            ticketChannel.send("Deleting this channel in 5 seconds!");
-            setTimeout(() => ticketChannel.delete(), 5000);
-            break;
+        if(message.author.username != "ShaqBot") {
+          switch (reaction.emoji.name) {
+            case "🔒":
+              ticketChannel.permissionOverwrites.edit(message.author, { SendMessages: false });
+              break;
+            case "⛔":
+              ticketChannel.send("Deleting this channel in 5 seconds!");
+              setTimeout(() => ticketChannel.delete(), 5000);
+              break;
+          }
         }
       });
   
