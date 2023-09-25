@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const { base_role, server_id } = require("../../c.json");
-
+// todo: test new role 
 module.exports = async (client) => {
   const rule_channel = client.channels.cache.find(c => c.name === '📜-rules');
   const serverGuild = client.guilds.cache.get(server_id);

@@ -1,5 +1,5 @@
 module.exports = {
-  name: "youtube",
+  name: "mystery",
   description : "This command leads to a mystery YouTube video.",
   execute(message, args) {
     let role = message.guild.roles.cache.find(r => r.name === "Shadow Realm");

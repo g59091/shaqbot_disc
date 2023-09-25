@@ -1,6 +1,7 @@
 module.exports = {
   name: "kick",
   description: "This command kicks a specified user.",
+  permissions: ["ADMINISTRATOR", "MANAGE_MESSAGES"],
   execute(message, args) {
     const member = message.mentions.users.first();
     const memberTarget = message.guild.members.cache.get(member.id);
