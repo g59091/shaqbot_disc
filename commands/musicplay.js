@@ -16,8 +16,8 @@ module.exports = {
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.channel.send('You need to be in a channel to execute this command!');
     const permissions = voiceChannel.permissionsFor(message.client.user);
-    if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissins');
-    if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissins');
+    if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissions');
+    if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissions');
     if (!args.length && cmd == "play") return message.channel.send('You need to send a second argument to play a song!');
 
     // handle: queue and init connection
@@ -94,13 +94,13 @@ module.exports = {
 // handle: abstracted player start
 const video_player = async (guild, song) => {
   const song_queue = queue.get(guild.id);
-  if (!song) {
+  if (!song || !song_queue) {
     song_queue.connection.disconnect();
     queue.delete(guild.id);
     return;
   } 
   // init: stream creation and playing
-  const stream = ytdl(song.url, {filter: "audioonly"});
+  const stream = ytdl(song.url, {filter: "audioonly", highWaterMark: 1 << 25});
   const resource = createAudioResource(stream);
   song_queue.player.play(resource);
   song_queue.connection.subscribe(song_queue.player);

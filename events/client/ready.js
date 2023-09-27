@@ -7,6 +7,6 @@ module.exports = (client) => {
   console.log("ShaqBot up & running!!");
   memberCounter(client);
   micreminder(client);
-  hurricane(client);
+  //hurricane(client);
   welcome(client);
 }

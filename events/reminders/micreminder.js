@@ -6,15 +6,16 @@ const { joinVoiceChannel, createAudioPlayer, createAudioResource,
 module.exports = async (client) =>{
   const guild = client.guilds.cache.get(server_id);
 
-  // timer for eight minutes
-  const timerMinutes = 8;
+  // timer for seven minutes
+  const timerMinutes = 7;
   const timerCheck = timerMinutes * 60 * 1000;
 
-  // todo: we need to comment out (and scrub) all personal names from repo
+  const refreshMembers = await guild.members.fetch();
   const userYB = client.users.cache.find(u => u.username === remind_user).id; 
   setInterval(() => {
     // check voice channel for specific user
     const userInGuild = guild.members.cache.get(userYB);
+    //if (!(userYB && userInGuild)) return console.debug("user not found in voice channel");
     const userVoiceChannel = client.guilds.cache.reduce((channel) => {
       if (userInGuild && userInGuild.voice.channel) {
         return userInGuild.voice.channel;
@@ -22,8 +23,9 @@ module.exports = async (client) =>{
       return channel;
     }, null);
 
-    // check if user is not muted
+    // user checks
     if (userInGuild && userInGuild.voice.selfMute) return console.debug("User is already muted.");
+    if (!userVoiceChannel) return console.debug("user is not in voice channel");
 
     // check if bot can make/start connection/player
     const connection = joinVoiceChannel({
