@@ -15,7 +15,7 @@ module.exports = async (client) =>{
   setInterval(() => {
     // check voice channel for specific user
     const userInGuild = guild.members.cache.get(userYB);
-    //if (!(userYB && userInGuild)) return console.debug("user not found in voice channel");
+    // if (!(userYB && userInGuild)) return console.debug("user not found in voice channel");
     const userVoiceChannel = client.guilds.cache.reduce((channel) => {
       if (userInGuild && userInGuild.voice.channel) {
         return userInGuild.voice.channel;

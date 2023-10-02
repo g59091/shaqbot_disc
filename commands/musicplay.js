@@ -1,7 +1,7 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 //const { Collection } = require("discord.js");
-// todo: switch from YTDL-core into other youtube library 
+// todo: switch from YTDL-core into other youtube library , like play-dl
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } = require("@discordjs/voice");
 
 const queue = new Map();
@@ -101,13 +101,16 @@ const video_player = async (guild, song) => {
   } 
   // init: stream creation and playing
   const stream = ytdl(song.url, {filter: "audioonly", highWaterMark: 1 << 25});
+  console.log(stream);
   const resource = createAudioResource(stream);
   song_queue.player.play(resource);
   song_queue.connection.subscribe(song_queue.player);
   // start: resource player
   song_queue.player.on("error" , (error) => console.error(error));
   song_queue.player.on(AudioPlayerStatus.Idle , () => {
+    console.log("song has finished playing");
     song_queue.songs.shift();
+    console.log("queue has shiftied to the next song");
     video_player(guild, song_queue.songs[0]);
   });
   await song_queue.text_channel.send(`now playing **${song.title}**`);
