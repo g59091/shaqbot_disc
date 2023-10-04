@@ -15,6 +15,7 @@ module.exports = {
     // handle: perm check
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return message.channel.send('You need to be in a channel to execute this command!');
+    if (message.channel.name !== "🎶-music-request") return message.channel.send("Please use this command in the 🎶-music-request channel"); 
     const permissions = voiceChannel.permissionsFor(message.client.user);
     if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissions');
     if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissions');

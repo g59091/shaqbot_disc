@@ -6,7 +6,7 @@ module.exports = {
     permissions: [],
     description: "Search for some coin!",
     async execute(message, args, client, profileInfo) {
-
+        if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
         const locations = [
             "car",
             "bathroom",

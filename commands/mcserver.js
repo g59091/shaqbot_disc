@@ -9,6 +9,7 @@ module.exports = {
   cooldown: 10,
   description: 'get information about a minecraft server',
   async execute(message, args , client){
+    if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
     if (!args[0]) return message.channel.send('Please enter a minecraft server ip');
     var mcaddress = args[0];
     

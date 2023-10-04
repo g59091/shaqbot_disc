@@ -11,6 +11,7 @@ module.exports = {
   name: "searchimage",
   descripiton: "this sends an image to the discord channel",
   async execute(message, args, client) {
+    if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
     const image_query = args.join(" ");
     if (!image_query) return message.channel.send("Please enter an image name YB");
 

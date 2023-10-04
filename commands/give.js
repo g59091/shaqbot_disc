@@ -6,6 +6,7 @@ module.exports = {
     cooldown: 10,
     description: ' give sCoins to a member ',
     async execute(message, args , client, profileInfo) {
+        if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
         if (!args.length) return message.channel.send("You need to mention a player to give them coins");
         const amount = args[1];
         const target = message.mentions.users.first();

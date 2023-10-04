@@ -4,6 +4,7 @@ module.exports = {
   description: "This command will mute a member timed or manually",
   // todo: find use for mute role change
   execute(message, args) {
+    if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
     const target =  message.mentions.users.first();
     if (!target)
       return message.channel.send("Please try again with a valid member argument.");

@@ -7,6 +7,7 @@ module.exports = {
     description: "creates a suggestion in the suggestion channel",
 
      async execute(message, args, client) {
+        if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
         const sug_channel = message.guild.channels.cache.find(c => c.name === '🤔-suggestions');
         if(!sug_channel) return message.channel.send('suggestions channel does not exist!');
         

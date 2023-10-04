@@ -3,6 +3,7 @@ module.exports = {
   name : "rules",
   description : "rules for the bruh server",
   execute(message, args) {
+    if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
     const rulesEmbed = new EmbedBuilder()
       .setColor('#26b5a7')
       .setTitle("Rules")
