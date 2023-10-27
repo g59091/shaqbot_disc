@@ -17,7 +17,8 @@ module.exports = async (client, message) => {
         userName: message.author.username,
         userId: message.author.id,
         sCoins: 25,
-        bank: 0
+        bank: 0,
+        sCards: []
        });
        profileNew.save();
     }
