@@ -6,7 +6,7 @@ module.exports = {
     if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
     if (!args[0] || isNaN(args[0]))
       return message.reply("please enter a real number");
-    if (args[0] < 1 || args[0] > 5)
+    if (args[0] < 1 || args[0] > 20)
       return message.reply("please give a number from 1 to 5");
     
     // bulk delete

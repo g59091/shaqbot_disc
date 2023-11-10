@@ -6,11 +6,13 @@ const Canvas = require('@napi-rs/canvas');
 const path = require("path");
 const fs = require("fs");
 const { AttachmentBuilder } = require('discord.js');
+const { card_game_effects } = require("../c.json");
+
 module.exports = {
   name: 'roll',
   aliases: [],
   permissions: [],
-  cooldown: 300,
+  cooldown: 1,
   description: ' lets the user roll for sCards ',
   async execute(message, args, client, profileInfo) {
     if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
@@ -22,12 +24,18 @@ module.exports = {
     const sampleContext = sampleCanvas.getContext("2d");
     const sampleBackground = await Canvas.loadImage(backgroundJpg);
     sampleContext.drawImage(sampleBackground, 0, 0, sampleCanvas.width, sampleCanvas.height);
+    var shaqCardName = "";
+    var shaqCardEffect = "";
+
+    // rendering three cards for roll
     var cardCount = 0;
     for (const card of cardsDropped) {
       const cardImage = await Canvas.loadImage(gachaDir + path.sep + card);
       // assume file name ends in .jpg or .png
       const cardNoExt = card.slice(0, -4);
-      sampleContext.drawImage(cardImage, cardCount + 100, 100, 400, 400);
+      shaqCardEffect = Math.random() <= 0.2 ? "poop" : "plain";
+      //sampleContext.drawImage(cardImage, cardCount + 100, 100, 400, 400);
+      cardEffectHelper(shaqCardEffect, sampleContext, cardImage, cardCount);
       sampleContext.fillStyle =  "white";
       sampleContext.fillRect(cardCount + 100, 500, 400, 50);
       sampleContext.fillStyle =  "black";
@@ -35,6 +43,7 @@ module.exports = {
       sampleContext.fillText(cardNoExt, cardCount + 250, 540); 
       cardCount += 450;
     } 
+    console.log(cardsDropped);
     const sampleAttachment = new AttachmentBuilder(await sampleCanvas.encode("png"), {name: "background.png"});
     await message.channel.send({files: [sampleAttachment]}).then((msg)  => {
       msg.react("1️⃣");
@@ -52,8 +61,7 @@ module.exports = {
       if (user.bot || !reaction.message.guild || 
         reaction.message.channel.id != channel) return;
 
-      var shaqCardName = "";
-      var shaqCardEffect = "_test";
+      console.log("reaction was added");
       switch (reaction.emoji.name) {
         case "1️⃣": 
           shaqCardName = cardsDropped[0].slice(0, -4) + shaqCardEffect;
@@ -67,7 +75,8 @@ module.exports = {
         default: 
           message.channel.send("PLUG!!!");
       }
-      console.log(message.author.id);
+      //console.log(message.author.id);
+      message.channel.send(`<@${message.author.id}> grabbed ${shaqCardName}`);
       try{
         await shaqModel.findOneAndUpdate(
           { userId: message.author.id },
@@ -79,3 +88,22 @@ module.exports = {
     });
   }
 }
+
+const cardEffectHelper = (cEffect, cContext , cImage, cCount) => {
+  //cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
+  const effectList = Object.getOwnPropertyNames(card_game_effects);
+  console.log(cEffect);
+  switch(cEffect) {
+    //case effectList[0]: 
+      //break;
+    case effectList[1]:
+      //console.log("effect has been found");
+      cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
+      cContext.fillStyle = "rgba(139, 69, 19, 0.65)";
+      cContext.fillRect(cCount + 100, 100, 400, 400);
+      break;
+    default: 
+      cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
+  }
+} 
+
