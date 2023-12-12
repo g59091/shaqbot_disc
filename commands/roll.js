@@ -45,7 +45,7 @@ module.exports = {
     } 
     //console.log(cardsDropped);
     const sampleAttachment = new AttachmentBuilder(await sampleCanvas.encode("png"), {name: "background.png"});
-    const cardMesaage = await message.channel.send({files: [sampleAttachment]}).then((msg)  => {
+    const cardMessage = await message.channel.send({files: [sampleAttachment]}).then((msg)  => {
       msg.react("1️⃣");
       msg.react("2️⃣");
       msg.react("3️⃣");
@@ -55,75 +55,35 @@ module.exports = {
     });
     
     const channel = message.guild.channels.cache.find(channel => channel.name === "🤖-commands").id;
-    // on message reaction add
-    /*client.on("messageReactionAdd", async (reaction, user) => {
-      if (cardsDropped == []) return;
-      if (reaction.message.partial) await reaction.message.fetch();
-      if (reaction.partial) await reaction.fetch;
-      if (user.bot || !reaction.message.guild || 
-        reaction.message.channel.id != channel) return;
-      
-      console.log("reaction was added");
-      console.log(cardsDropped);
-      switch (reaction.emoji.name) {
-        case "1️⃣": 
-          shaqCardName = cardsDropped[0].slice(0, -4) + shaqCardEffect;
-          break;
-        case "2️⃣":
-          shaqCardName = cardsDropped[1].slice(0, -4) + shaqCardEffect;
-          break;
-        case "3️⃣":
-          shaqCardName = cardsDropped[2].slice(0, -4) + shaqCardEffect;
-          break;
-        default: 
-          message.channel.send("PLUG!!!");
-      }
-      //cardsDropped = [];
-      //console.log(message.author.id);
-      message.channel.send(`<@${message.author.id}> grabbed ${shaqCardName}`);
-      try{
-        await shaqModel.findOneAndUpdate(
-          { userId: message.author.id },
-          { $push: { sCards: shaqCardName}}
-        );
-      } catch(err) {
-        console.log(err);
-      }
-    });*/
-
     const reactionFilter = async (reaction, user) => {
+      // Partial reaction checks
       if (reaction.message.partial) await reaction.message.fetch();
       if (reaction.partial) await reaction.fetch;
       if (user.bot || !reaction.message.guild || 
         reaction.message.channel.id != channel) return;
 
-      //console.log(reaction.emoji.name);
-      //console.log("test");
-      return ["1️⃣", "2️⃣", "3️⃣"].includes(reaction.emoji.name) && user.id === message.author.id; // && user.id === interaction.user.id;
+      return ["1️⃣", "2️⃣", "3️⃣"].includes(reaction.emoji.name) && user.id === message.author.id; 
     };
 
-    //console.log(message.author.id);
-    /*const collector = cardMesaage.createReactionCollector({filter, time: 5000 });
-    collector.on('collect', r => console.log(`Collected ${r.emoji.name}`));
-    collector.on('end', collected => console.log(`Collected ${collected.size} items`));*/
-
-    cardMesaage.awaitReactions({ filter: reactionFilter, max: 1, maxUsers: 1, time: 10000, errors: ["time"]})
+    cardMessage.awaitReactions({ filter: reactionFilter, max: 1, maxUsers: 1, time: 10000, errors: ["time"]})
       .then((collected) => {
         return new Promise( async resolve => {
           const capReaction = collected.first();
+          var cardIndex = 0;
           switch (capReaction.emoji.name) {
             case "1️⃣": 
-              shaqCardName = cardsDropped[0].slice(0, -4) + shaqCardEffect;
+              cardIndex = 0;
               break;
             case "2️⃣":
-              shaqCardName = cardsDropped[1].slice(0, -4) + shaqCardEffect;
+              cardIndex = 1;
               break;
             case "3️⃣":
-              shaqCardName = cardsDropped[2].slice(0, -4) + shaqCardEffect;
+              cardIndex = 2;
               break;
             default: 
               message.channel.send("PLUG!!!");
           }
+          shaqCardName = cardsDropped[cardIndex].slice(0, -4) + "_" + shaqCardEffect;
           message.channel.send(`<@${message.author.id}> grabbed ${shaqCardName}`);
           try {
             await shaqModel.findOneAndUpdate(
@@ -140,7 +100,7 @@ module.exports = {
       });
   }
 }
-
+//
 const cardEffectHelper = (cEffect, cContext , cImage, cCount) => {
   //cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
   const effectList = Object.getOwnPropertyNames(card_game_effects);
