@@ -20,6 +20,7 @@ module.exports = {
     const backgroundJpg = path.resolve() + path.sep + "media" + path.sep + "background_test.jpg";
     const gachaFiles = fs.readdirSync(gachaDir);
     var cardsDropped = gachaFiles.sort(() => Math.random() - Math.random()).slice(0, 3);
+    var cardEffects = [];
     const sampleCanvas = Canvas.createCanvas(1500, 600);
     const sampleContext = sampleCanvas.getContext("2d");
     const sampleBackground = await Canvas.loadImage(backgroundJpg);
@@ -34,7 +35,9 @@ module.exports = {
       // assume file name ends in .jpg or .png
       const cardNoExt = card.slice(0, -4);
       shaqCardEffect = Math.random() <= 0.2 ? "poop" : "plain";
+      cardEffects.push(shaqCardEffect);
       //sampleContext.drawImage(cardImage, cardCount + 100, 100, 400, 400);
+      console.log(shaqCardEffect);
       cardEffectHelper(shaqCardEffect, sampleContext, cardImage, cardCount);
       sampleContext.fillStyle =  "white";
       sampleContext.fillRect(cardCount + 100, 500, 400, 50);
@@ -83,12 +86,16 @@ module.exports = {
             default: 
               message.channel.send("PLUG!!!");
           }
-          shaqCardName = cardsDropped[cardIndex].slice(0, -4) + "_" + shaqCardEffect;
+          console.log(shaqCardEffect);
+          shaqCardName = cardsDropped[cardIndex].slice(0, -4) + "_" + cardEffects[cardIndex];
           message.channel.send(`<@${message.author.id}> grabbed ${shaqCardName}`);
+          var cardPair = {cardHash: shaqCardName};
           try {
+            var cardHash = Math.random().toString(36).slice(2, 9);
             await shaqModel.findOneAndUpdate(
               { userId: message.author.id },
-              { $push: { sCards: shaqCardName}}
+              { $push: { sCards: {cardHash: shaqCardName}}}
+              //{ $addToSet: {sCards: {cardHash: shaqCardName}}}
             );
           } catch(err) {
             console.log(err);
@@ -97,6 +104,18 @@ module.exports = {
       })
       .catch((collected) => {
           console.log(`after 10 seconds only ${collected.size} out of 4 reactions`);
+      });
+      //console.log(shaqModel.findById('65949efcedd31c6c2ee0092b').schema.obj.sCards);
+      shaqModel.findById('65949efcedd31c6c2ee0092b')
+        .then(document => {
+        if (document) {
+          console.log(document.sCards);
+        } else {
+          console.log('Document not found');
+        }
+      })
+      .catch(error => {
+        console.error('Error retrieving document:', error);
       });
   }
 }
