@@ -17,20 +17,28 @@ module.exports = {
         const backgroundJpg = path.resolve() + path.sep + "media" + path.sep + "background_portrait.jpg";
         const gachaFiles = fs.readdirSync(gachaDir); 
         var imageName = "";
-        try{
-          for (const file of gachaFiles) {
-             if(file.slice(0, -4) == args[0].split("_")[0]) {
-                 imageName = file;
-              }}
-        const imageDoc = await shaqModel.findOne(
-            { userId: message.author.id , sCards: args[0]}
-            );
-            console.log(imageDoc);
+        var searchTerm = args[0];
+        try { 
+          const imageDoc = await shaqModel.findOne({ 
+            userId: message.author.id ,
+            sCardIds: searchTerm
+          });
+          //console.log(imageDoc);
+          var cardIndex = imageDoc.sCardIds.indexOf(searchTerm);
+          var sCardname = "";
+          if (cardIndex != -1 ) {
+            sCardname = imageDoc.sCards[cardIndex]
           }
-        catch(err) {
-              console.log(err);
+          for (var file of gachaFiles) {
+            if (file.slice(0, -4) == sCardname.split("_")[0]){
+              imageName = file;
+            }
+          }
+          //console.log(imageName);
         }
-        
+        catch(err) {
+          console.log(err);
+        }
         if(!imageName) return message.channel.send("image not in database dummy"); 
         const sampleCanvas = Canvas.createCanvas(900, 1600);
         const sampleContext = sampleCanvas.getContext("2d");
@@ -46,7 +54,6 @@ module.exports = {
         // Scan DB for argument name to get specific card
         // render specific card onto canvas backround
         // render same effects
-
     }
 }
 const cardEffectHelper = (cEffect, cContext , cImage) => {

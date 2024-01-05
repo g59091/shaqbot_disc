@@ -5,9 +5,9 @@ const shaqSchema = new mongoose.Schema({
     userId: {type: String, require: true},
     sCoins: {type: Number, default: 25 },
     bank: {type: Number},
-   // sCards: [String],
-   // sCards: {type: Map, of: String}
-    sCards: [{String, String}]
+    sCards: [String],
+    sCardIds: [String],
+    //sCards: [{String, String}]
 });
 
 module.exports = mongoose.model("ShaqCollection", shaqSchema);

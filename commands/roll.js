@@ -27,6 +27,7 @@ module.exports = {
     sampleContext.drawImage(sampleBackground, 0, 0, sampleCanvas.width, sampleCanvas.height);
     var shaqCardName = "";
     var shaqCardEffect = "";
+    var cardHash = Math.random().toString(36).slice(2, 9);
 
     // rendering three cards for roll
     var cardCount = 0;
@@ -86,16 +87,15 @@ module.exports = {
             default: 
               message.channel.send("PLUG!!!");
           }
-          console.log(shaqCardEffect);
+          //console.log(shaqCardEffect);
+          
           shaqCardName = cardsDropped[cardIndex].slice(0, -4) + "_" + cardEffects[cardIndex];
-          message.channel.send(`<@${message.author.id}> grabbed ${shaqCardName}`);
-          var cardPair = {cardHash: shaqCardName};
+          message.channel.send(`<@${message.author.id}> grabbed ${shaqCardName} and ID: ${cardHash}`);
           try {
-            var cardHash = Math.random().toString(36).slice(2, 9);
+            console.log(cardHash);
             await shaqModel.findOneAndUpdate(
               { userId: message.author.id },
-              { $push: { sCards: {cardHash: shaqCardName}}}
-              //{ $addToSet: {sCards: {cardHash: shaqCardName}}}
+              { $push: { sCards: shaqCardName, sCardIds: cardHash}},
             );
           } catch(err) {
             console.log(err);
@@ -105,21 +105,8 @@ module.exports = {
       .catch((collected) => {
           console.log(`after 10 seconds only ${collected.size} out of 4 reactions`);
       });
-      //console.log(shaqModel.findById('65949efcedd31c6c2ee0092b').schema.obj.sCards);
-      shaqModel.findById('65949efcedd31c6c2ee0092b')
-        .then(document => {
-        if (document) {
-          console.log(document.sCards);
-        } else {
-          console.log('Document not found');
-        }
-      })
-      .catch(error => {
-        console.error('Error retrieving document:', error);
-      });
   }
 }
-//
 const cardEffectHelper = (cEffect, cContext , cImage, cCount) => {
   //cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
   const effectList = Object.getOwnPropertyNames(card_game_effects);
@@ -137,4 +124,3 @@ const cardEffectHelper = (cEffect, cContext , cImage, cCount) => {
       cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
   }
 } 
-
