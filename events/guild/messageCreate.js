@@ -17,7 +17,7 @@ module.exports = async (client, message) => {
         userName: message.author.username,
         userId: message.author.id,
         sCoins: 25,
-        bank: 0,
+        //bank: 0,
         sCards: []
        });
        profileNew.save();
@@ -29,11 +29,14 @@ module.exports = async (client, message) => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const commandProvided = args.shift().toLowerCase();
   var commandGet = client.commands.find(a => a.aliases && a.aliases.includes(commandProvided));
+
+  // handle: valid cammand checker
   if (!commandGet && available_commands.includes(commandProvided))
     commandGet = client.commands.get(commandProvided);
+  if (!commandGet) return message.channel.send(`error: ${commandProvided} is not a valid command`);  
   
   // handle: user invalid/valid perms
-  if ("permissions" in commandGet) {
+  if (commandGet.hasOwnProperty("permissions")) {
     let invalidPerms = []
     for (const [perm, permValue] of Object.entries(PermissionsBitField.Flags)) {
       if (!all_permissions.includes(perm))

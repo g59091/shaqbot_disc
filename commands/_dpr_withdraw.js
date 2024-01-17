@@ -1,6 +1,6 @@
 const shaqModel = require("../models/shaqschema");
 module.exports = {
-    name: 'withdraw',
+    name: 'old_withdraw',
     aliases: [],
     permissions: [],
     cooldown: 10,
