@@ -47,7 +47,7 @@ module.exports = async (client) => {
     for (var reactUser of allReactionUsernames) {
       var reactUserId = allServerUsers.find(member => member.user.username === reactUser);
       //console.log(reactUserId);
-      if (reactUserId && reactUserId.hasOwnProperty("roles"))
+      if (reactUserId) 
         await reactUserId.roles.add(baseRole);
     }
    }, timerCheck);

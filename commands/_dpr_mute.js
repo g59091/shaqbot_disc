@@ -1,6 +1,6 @@
 const ms = require('ms');
 module.exports = {
-  name: "mute",
+  name: "old_mute",
   description: "This command will mute a member timed or manually",
   // todo: find use for mute role change
   execute(message, args) {

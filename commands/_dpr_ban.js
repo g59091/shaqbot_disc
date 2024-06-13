@@ -1,5 +1,5 @@
 module.exports = {
-  name: "ban",
+  name: "old_ban",
   description: "This command bans a specified user.",
   permissions: ["ADMINISTRATOR", "MANAGE_MESSAGES"],
   execute(message, args) {

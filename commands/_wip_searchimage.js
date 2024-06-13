@@ -13,9 +13,11 @@ module.exports = {
   async execute(message, args, client) {
     if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
     const image_query = args.join(" ");
+    console.log(image_query);
     if (!image_query) return message.channel.send("Please enter an image name YB");
 
     const image_results = await google.scrape(image_query, 1);
+    console.log(image_results);
     if (image_results.hasOwnProperty("0") && image_results[0].hasOwnProperty("url"))
       message.channel.send(image_results[0]["url"]);
     else

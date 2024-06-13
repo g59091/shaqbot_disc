@@ -23,7 +23,7 @@ The main functions of this project are as a:
 
 `reminders/micreminder.js`: Handles an auto join and auto leave to play sound for mic mute reminder
 
-`reminders/welcome.js`: Handles changing the role of new member on acceptance of rules [WIP]
+`reminders/welcome.js`: Handles changing the role of new member on acceptance of rules 
 
 `counters/membercounter.js`: Handles counting all members in the server onto a sample voice channel
 
@@ -32,34 +32,20 @@ Any file with the prefix `_dpr_` has been depreciated
 
 `commands/balance.js`: Returns balance of user inventory
 
-`commands/ban.js`: Handles banning of specific users
-
-`commands/beg.js`: Handles give outs for users inventories [WIP]
+`commands/beg.js`: Handles give outs for users inventories 
 
 `commands/clearmessages.js`: Bulk deletes messages in a specific channel
 
-`commands/deposit.js`: Handles deposits for users inventories [WIP]
-
-`commands/give.js`: Handles admin give outs for users inventories [WIP]
-
-`commands/kick.js`: Handles the kicking of specific users
+`commands/give.js`: Handles admin give outs for users inventories 
 
 `commands/mcserver`: Uses a `mcstatus.io` API request to export MC server info
 
 `commands/musicplay.js`: Uses `ytdl-core` and `yt-search` to handle playing, skipping, stopping a song in queue recieved from the YouTube™ platform
 
-`commands/mute.js`: Handles muting certains users in a voice channel [WIP]
-
 `commands/mystery.js`: ?
 
 `commands/rules.js`: Returns the set of rules for the server
 
-`commands/search.js:`: Interactive game for gacha user inventory [WIP]
-
 `commands/searchimage.js`: Uses `images-scraper` to return google search imagery
 
-`commands/suggestions.js`: Handles user suggestions for the server [WIP]
-
-`commands/ticket.js`: Handles ticket creation for user concerns [WIP]
-
-`commands/withdraw.js`: Handles withdrawls for users inventories [WIP]
+`commands/suggestions.js`: Handles user suggestions for the server 

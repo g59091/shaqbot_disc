@@ -1,7 +1,7 @@
 const shaqModel = require("../models/shaqschema");
 
 module.exports = {
-    name: "search",
+    name: "old_search",
     aliases: [],
     permissions: [],
     description: "Search for some coin!",

@@ -1,7 +1,7 @@
 const { ChannelType, PermissionsBitField } = require('discord.js');
 const { ticket_category_id } = require('../c.json'); 
 module.exports = {
-    name: "ticket",
+    name: "old_ticket",
     aliases: [],
     description: "open a ticket!",
     async execute(message, args, client) {

@@ -1,5 +1,5 @@
 module.exports = {
-  name: "kick",
+  name: "old_kick",
   description: "This command kicks a specified user.",
   permissions: ["ADMINISTRATOR", "MANAGE_MESSAGES"],
   execute(message, args) {
