@@ -13,7 +13,7 @@
     "@napi-rs/canvas": "^0.1.44",
     "discord.js": "^14.9.0",
     "ffmpeg": "^0.0.4",
-    "images-scraper": "^6.4.2",
+    "images-scraper": "^6.4.0",
     "libsodium-wrappers": "^0.7.11",
     "mongoose": "^7.4.2",
     "ms": "^2.1.3",
