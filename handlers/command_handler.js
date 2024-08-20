@@ -1,13 +1,13 @@
-const fs = require("fs");
+import fs from "fs";
 
-module.exports = (client) =>{
+export default async (client) => {
   const command_files = fs.readdirSync("./commands/").filter(file => file.endsWith(".js"));
 
   for (const file of command_files) {
-    const command = require(`../commands/${file}`);
+    const command = await import(`../commands/${file}`);
     if (command.name)
       client.commands.set(command.name, command);
     else
       continue;
   }
-}
+};

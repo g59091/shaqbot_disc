@@ -1,5 +1,6 @@
-const { EmbedBuilder } = require("discord.js");
-module.exports = {
+import { EmbedBuilder } from "discord.js";
+
+export default {
   name : "rules",
   description : "rules for the bruh server",
   execute(message, args) {
@@ -16,4 +17,4 @@ module.exports = {
       .setFooter({text: "Make sure to read all the rules big nose dummy"});
     message.channel.send({embeds: [rulesEmbed]});
   }
-}
+};

@@ -1,6 +1,11 @@
-const { Client, Events, GatewayIntentBits, Collection, Partials } = require("discord.js");
-const { disc_bot_token, mongodb_srv } = require('./c.json');
-const mongoose = require("mongoose");
+// const { Client, Events, GatewayIntentBits, Collection, Partials } = require("discord.js");
+// const { disc_bot_token, mongodb_srv } = require('./c.json');
+// const mongoose = require("mongoose");
+import { Client, Events, GatewayIntentBits, Collection, Partials } from "discord.js";
+import jdata from "./c.json" assert { type: "json" };
+const { disc_bot_token, mongodb_srv } = jdata;
+import mongoose from "mongoose";
+
 // new client instance
 const client = new Client({intents: [
   GatewayIntentBits.Guilds, 
@@ -19,7 +24,7 @@ const client = new Client({intents: [
 mongoose.connect(mongodb_srv, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}).then(() =>{
+}).then(() => {
   console.log("connected to DB BND");
 }).catch((err) => {
   console.log(err);
@@ -28,10 +33,15 @@ mongoose.connect(mongodb_srv, {
 client.commands = new Collection();
 client.events = new Collection();
 
-["command_handler", "event_handler"].forEach(handler =>{
-  require(`./handlers/${handler}`)(client);
-})
-
+async function handlers() {
+  for (const handler of ["command_handler", "event_handler"]) {
+    const module = await import(`./handlers/${handler}.js`);
+    module.default(client);
+  }
+}
+handlers().catch((err) => {
+  console.error('Error in handlers:', err);
+});
 
 // login using token
-client.login(disc_bot_token)
+client.login(disc_bot_token);

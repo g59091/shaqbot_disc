@@ -1,13 +1,13 @@
-var Scraper = require("images-scraper");
+// var Scraper = require("images-scraper");
+import Scraper from "images-scraper";
 
 const google = new Scraper({
   puppeteer: {
     headless: true
   }
-}
-);
+});
 
-module.exports = {
+export default {
   name: "searchimage",
   descripiton: "this sends an image to the discord channel",
   async execute(message, args, client) {

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: "clear",
   description: "clear my messages",
   permissions: ["ADMINISTRATOR", "MANAGE_MESSAGES"],

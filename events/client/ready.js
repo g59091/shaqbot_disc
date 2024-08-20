@@ -1,12 +1,12 @@
-const memberCounter = require("../../counters/membercounter.js");
-// const hurricane = require("../reminders/hurricane.js");
-const micreminder = require("../reminders/micreminder.js");
-const welcome = require("../reminders/welcome.js");
+import memberCounter from "../../counters/membercounter.js";
+import hurricane from "../reminders/_wip_hurricane.js";
+import micreminder from "../reminders/micreminder.js";
+import welcome from "../reminders/welcome.js";
 
-module.exports = (client) => {
+export default (client) => {
   console.log("ShaqBot up & running!!");
   memberCounter(client);
   micreminder(client);
   // hurricane(client);
   welcome(client);
-}
+};

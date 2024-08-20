@@ -1,9 +1,10 @@
-const { prefix, available_commands, all_permissions } = require('../../c.json');
-const { Collection, PermissionsBitField } = require("discord.js");
-const shaqModel = require("../../models/shaqschema");
-
+import jdata from "../../c.json" assert { type: "json" };
+const { prefix, available_commands, all_permissions } = jdata;
+import { Collection, PermissionsBitField } from "discord.js";
+import shaqModel from "../../models/shaqschema.js";
 const cooldowns = new Map();
-module.exports = async (client, message) => {  
+
+export default async (client, message) => {  
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   // handle: shaqSchema data for each profile
@@ -82,4 +83,4 @@ module.exports = async (client, message) => {
     message.reply("There was an error trying to execute this command!");
     console.log(err);
   }
-}
+};

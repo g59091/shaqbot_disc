@@ -1,5 +1,7 @@
-const { server_id } = require('../c.json');
-module.exports = async (client) =>{
+import jdata from "../c.json" assert { type: "json" };
+const { server_id } = jdata;
+
+export default async (client) => {
   const guild = client.guilds.cache.get(server_id);
   // timer for eight minutes
   const timerMinutes = 8;
@@ -12,4 +14,4 @@ module.exports = async (client) =>{
     channel.setName(`Member Count: ${memberCount.toLocaleString()}`);
     console.debug("Updating Member Count");
   }, timerCheck);
-}
+};

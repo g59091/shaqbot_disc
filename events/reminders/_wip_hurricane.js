@@ -1,9 +1,13 @@
-const { AttachmentBuilder, EmbedBuilder } = require("discord.js");
-const path = require("path");
-const { request } = require("undici");
-const { createWriteStream } = require("fs");
+// const { AttachmentBuilder, EmbedBuilder } = require("discord.js");
+// const path = require("path");
+// const { request } = require("undici");
+// const { createWriteStream } = require("fs");
+import { AttachmentBuilder, EmbedBuilder } from "discord.js";
+import path from "path";
+import { request } from "undici";
+import { createWriteStream } from "fs";
 
-module.exports = async(client) => {
+export default async(client) => {
   const nhc_channel = client.channels.cache.find(c => c.name === '🌀-hurricane-watch');
   if(!nhc_channel) return console.info('hurricane channel does not exist!');
 
@@ -58,4 +62,4 @@ module.exports = async(client) => {
       //await nhc_channel.send({ files: [hurricaneAttachment]});
     });
   }
-}
+};

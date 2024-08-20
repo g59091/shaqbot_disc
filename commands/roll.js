@@ -1,14 +1,15 @@
 // first: grab length of directory in shaq_gacha_pics
 // Second: grab 2-3 random cards from shaq_gacha_pics
 // Third: when user clicks on card, associate picture path with scards string array in schema
-const shaqModel = require("../models/shaqschema");
-const Canvas = require('@napi-rs/canvas');
-const path = require("path");
-const fs = require("fs");
-const { AttachmentBuilder } = require('discord.js');
-const { card_game_effects } = require("../c.json");
+import shaqModel from "../models/shaqschema.js";
+import Canvas from "@napi-rs/canvas";
+import path from "path";
+import fs from "fs";
+import { AttachmentBuilder } from "discord.js";
+import jdata from "../c.json" assert { type: "json" };
+const { card_game_effects } = jdata;
 
-module.exports = {
+export default {
   name: 'roll',
   aliases: [],
   permissions: [],
@@ -106,12 +107,13 @@ module.exports = {
           console.log(`after 10 seconds only ${collected.size} out of 4 reactions`);
       });
   }
-}
+};
+
 const cardEffectHelper = (cEffect, cContext , cImage, cCount) => {
   //cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
   const effectList = Object.getOwnPropertyNames(card_game_effects);
   //console.log(cEffect);
-  switch(cEffect) {
+  switch (cEffect) {
     //case effectList[0]: 
       //break;
     case effectList[1]:
@@ -123,4 +125,4 @@ const cardEffectHelper = (cEffect, cContext , cImage, cCount) => {
     default: 
       cContext.drawImage(cImage, cCount + 100, 100, 400, 400);
   }
-} 
+};

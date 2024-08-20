@@ -1,4 +1,6 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 // todo: add picture functionality
 const shaqSchema = new mongoose.Schema({
     userName: {type: String, require: true, unique: true},
@@ -10,4 +12,4 @@ const shaqSchema = new mongoose.Schema({
     // sCards: [{String, String}]
 });
 
-module.exports = mongoose.model("ShaqCollection", shaqSchema);
+export default mongoose.model("ShaqCollection", shaqSchema);

@@ -1,10 +1,12 @@
-const { available_commands } = require('../c.json');
-const { EmbedBuilder } = require("discord.js");
-module.exports = {
+import jdata from "../c.json" assert { type: "json" };
+const { available_commands } = jdata;
+import { EmbedBuilder } from "discord.js";
+
+export default {
   name: "help",
   description: "display available commands",
   cooldown: 2.5,
-  async execute(message, args , client) {
+  async execute(message, args, client) {
     if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel");
     const helpEmbed = new EmbedBuilder()
       .setColor('#3498db')
@@ -16,4 +18,4 @@ module.exports = {
     return message.channel.send({embeds: [helpEmbed]});
     //return message.channel.send(`Available commands: ${available_commands}`);
   }
-}
+};

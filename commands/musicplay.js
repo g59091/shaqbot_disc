@@ -1,12 +1,11 @@
-const ytdl = require('ytdl-core');
-const ytSearch = require('yt-search');
-// const { Collection } = require("discord.js");
 // todo: switch from YTDL-core into other youtube library , like play-dl
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } = require("@discordjs/voice");
+import ytdl from "ytdl-core";
+import ytSearch from "yt-search";
+import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } from "@discordjs/voice";
 
 const queue = new Map();
 
-module.exports = {
+export default {
   name: "play",
   aliases: ["skip", "stop"],
   cooldown: 2,
@@ -90,7 +89,7 @@ module.exports = {
     else if(cmd === "skip") skip_song(message, server_queue); 
     else if(cmd === "stop") stop_song(message, server_queue);
   }
-}
+};
 
 // handle: abstracted player start
 const video_player = async (guild, song) => {
@@ -115,7 +114,7 @@ const video_player = async (guild, song) => {
     video_player(guild, song_queue.songs[0]);
   });
   await song_queue.text_channel.send(`now playing **${song.title}**`);
-}
+};
 
 // handle: move to next in queue
 const skip_song = (message, server_queue) => {
@@ -123,11 +122,11 @@ const skip_song = (message, server_queue) => {
   if (!server_queue) return message.channel.send(`bro theres no songs in the queue relax`);
   server_queue.songs.shift();
   video_player(message.guild, server_queue.songs[0]);
-}
+};
 
 // handle: drop queue
 const stop_song = (message, server_queue) => {
   if (!message.member.voice.channel) return message.channel.send("you need to be in the channel to use this dummy");
   server_queue.songs = [];
   server_queue.connection.disconnect();
-}
+};

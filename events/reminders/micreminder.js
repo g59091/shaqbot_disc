@@ -1,9 +1,9 @@
-const { server_id, remind_user } = require('../../c.json');
-const path = require("path");
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, 
-  AudioPlayerStatus } = require("@discordjs/voice");
+import jdata from "../../c.json" assert { type: "json" };
+const { server_id, remind_user } = jdata;
+import path from "path";
+import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } from "@discordjs/voice";
 
-module.exports = async (client) =>{
+export default async (client) => {
   const guild = client.guilds.cache.get(server_id);
 
   // timer for seven minutes
@@ -46,4 +46,4 @@ module.exports = async (client) =>{
     }); 
   
   }, timerCheck);
-}
+};

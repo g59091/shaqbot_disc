@@ -1,7 +1,11 @@
-const { EmbedBuilder } = require("discord.js");
-const { base_role, server_id } = require("../../c.json");
+// const { EmbedBuilder } = require("discord.js");
+// const { base_role, server_id } = require("../../c.json");
+import { EmbedBuilder } from "discord.js";
+import jdata from "../../c.json" assert { type: "json" };
+const { base_role, server_id } = jdata;
+
 // todo: test new role 
-module.exports = async (client) => {
+export default async (client) => {
   const rule_channel = client.channels.cache.find(c => c.name === '📜-rules');
   const serverGuild = client.guilds.cache.get(server_id);
   const baseRole = serverGuild.roles.cache.find(role => role.name === base_role);
@@ -51,4 +55,4 @@ module.exports = async (client) => {
         await reactUserId.roles.add(baseRole);
     }
    }, timerCheck);
-}
+};
