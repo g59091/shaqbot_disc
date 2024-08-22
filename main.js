@@ -1,6 +1,3 @@
-// const { Client, Events, GatewayIntentBits, Collection, Partials } = require("discord.js");
-// const { disc_bot_token, mongodb_srv } = require('./c.json');
-// const mongoose = require("mongoose");
 import { Client, Events, GatewayIntentBits, Collection, Partials } from "discord.js";
 import jdata from "./c.json" assert { type: "json" };
 const { disc_bot_token, mongodb_srv } = jdata;

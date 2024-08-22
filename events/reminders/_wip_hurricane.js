@@ -1,7 +1,3 @@
-// const { AttachmentBuilder, EmbedBuilder } = require("discord.js");
-// const path = require("path");
-// const { request } = require("undici");
-// const { createWriteStream } = require("fs");
 import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import path from "path";
 import { request } from "undici";

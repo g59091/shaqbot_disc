@@ -3,13 +3,11 @@ const { server_id, remind_user } = jdata;
 import path from "path";
 import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } from "@discordjs/voice";
 
+// timer for seven minutes
+const timerMinutes = 7;
+
 export default async (client) => {
   const guild = client.guilds.cache.get(server_id);
-
-  // timer for seven minutes
-  const timerMinutes = 7;
-  const timerCheck = timerMinutes * 60 * 1000;
-
   const refreshMembers = await guild.members.fetch();
   const userYB = client.users.cache.find(u => u.username === remind_user).id; 
   setInterval(() => {
@@ -45,5 +43,5 @@ export default async (client) => {
       connection.disconnect();
     }); 
   
-  }, timerCheck);
+  }, timerMinutes * 60 * 1000);
 };

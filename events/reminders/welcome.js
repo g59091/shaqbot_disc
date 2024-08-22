@@ -1,5 +1,3 @@
-// const { EmbedBuilder } = require("discord.js");
-// const { base_role, server_id } = require("../../c.json");
 import { EmbedBuilder } from "discord.js";
 import jdata from "../../c.json" assert { type: "json" };
 const { base_role, server_id } = jdata;
