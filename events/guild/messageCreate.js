@@ -36,9 +36,13 @@ export default async (client, message) => {
     commandGet = client.commands.get(commandProvided);
   if (!commandGet) return message.channel.send(`error: ${commandProvided} is not a valid command`);  
   
+  // handle: ES terminology
+  //console.log(commandGet);
+  commandGet = commandGet.default;
+
   // handle: user invalid/valid perms
   if (commandGet.hasOwnProperty("permissions")) {
-    let invalidPerms = []
+    let invalidPerms = [];
     for (const [perm, permValue] of Object.entries(PermissionsBitField.Flags)) {
       if (!all_permissions.includes(perm))
         return console.log(`Invalid Permissions ${perm}`);

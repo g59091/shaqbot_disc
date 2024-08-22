@@ -4,6 +4,7 @@ import { EmbedBuilder } from "discord.js";
 
 export default {
   name: "help",
+  // aliases: ["hel"],
   description: "display available commands",
   cooldown: 2.5,
   async execute(message, args, client) {
