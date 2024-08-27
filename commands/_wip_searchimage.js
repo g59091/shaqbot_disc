@@ -6,6 +6,10 @@ const google = new Scraper({
   }
 });
 
+// https://www.npmjs.com/package/google-images
+// consider converting to google-images library
+// use google API to reach to get google images
+// maybe puppeteer? https://github.com/pevers/images-scraper/issues/113
 export default {
   name: "searchimage",
   descripiton: "this sends an image to the discord channel",

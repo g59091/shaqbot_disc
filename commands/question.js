@@ -1,5 +1,6 @@
-import { ChatGPTAPI } from 'chatgpt';
-import { request } from 'undici';
+// import { ChatGPTAPI } from 'chatgpt';
+// import { request } from 'undici';
+import OpenAI from 'openai';
 import jdata from "../c.json" assert { type: "json" };
 const { open_token } = jdata;
 
@@ -13,12 +14,16 @@ export default {
     // find info on openai's api for chatgpt
     // ping api using user prompt
     // get api result and return it to discord user
-    const api = new ChatGPTAPI({
-      apiKey: open_token
+    var quesStr = "Who won the most amount of NBA championships in the last 10 years?"
+    const gptClient = new OpenAI({ apiKey: open_token });
+    const gptChat = await gptClient.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {"role": "system", "content": "You are a friendly assistant somewhat based on a American basketball player."},
+        {"role": "assistant", "content": "Please keep the response less than or equal to 200 characters and/or tokens."},
+        {"role": "user", "content": quesStr}
+      ]
     });
-
-    const res = await api.sendMessage('hello there');
-    console.log(res.text);
+    console.log(gptChat.choices[0].message.content);
   }
 };
-//
