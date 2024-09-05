@@ -1,4 +1,4 @@
-// todo: switch from YTDL-core into other youtube library , like play-dl
+// todo: switch from YTDL-core into other youtube library, like play-dl
 import ytdl from "ytdl-core";
 import ytSearch from "yt-search";
 import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } from "@discordjs/voice";

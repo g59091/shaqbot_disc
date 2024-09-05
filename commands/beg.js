@@ -13,7 +13,7 @@ export default {
         { userId: message.author.id },
         { $inc: { sCoins: randomNumber } }
       );
-      return message.channel.send(` ${message.author.username}, you begged and recieved $${randomNumber}.00`);
+      return message.channel.send(`${message.author.username}, you begged and recieved $${randomNumber}.00`);
     }
     else
       return message.channel.send("no f u");

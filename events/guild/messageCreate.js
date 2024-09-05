@@ -51,7 +51,11 @@ export default async (client, message) => {
     }
 
     if (invalidPerms.length)
-      return message.channel.send(`Missing Permissions: \`${invalidPerms}\``);
+    {
+      //return message.channel.send(`Missing Permissions: \`${invalidPerms}\``);
+      console.log("Missing Permissions: " + invalidPerms);
+      return message.channel.send("Sorry, you don't have the perms to use this command! BND");
+    }
   }
 
   // handle: user command cooldowns

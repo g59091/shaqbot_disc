@@ -1,3 +1,5 @@
+// undici throwing connect timeout error, even though command not executed
+// reports that it could be ipv6 errors?
 import { request } from 'undici';
 import { EmbedBuilder } from 'discord.js';
 import jdata from "../c.json" assert { type: "json" };
