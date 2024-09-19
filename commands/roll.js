@@ -18,7 +18,7 @@ export default {
   async execute(message, args, client, profileInfo) {
     if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel"); 
     const gachaDir = path.resolve() + path.sep + "media" + path.sep + "shaq_gacha_pics";
-    const backgroundJpg = path.resolve() + path.sep + "media" + path.sep + "background_test.jpg";
+    const backgroundJpg = path.resolve() + path.sep + "media" + path.sep + "background.jpg";
     const gachaFiles = fs.readdirSync(gachaDir);
     var cardsDropped = gachaFiles.sort(() => Math.random() - Math.random()).slice(0, 3);
     var cardEffects = [];

@@ -14,7 +14,6 @@ export default {
     if (message.channel.name !== "🤖-commands") return message.channel.send("Please use this command in the 🤖-commands channel");
     if (!args.length) return message.channel.send("Search phrase needed BND");
     var quesStr = args.join(' ');
-    // var quesStr = "What's your favorite basketball team?";
     const gptClient = new OpenAI({ apiKey: open_token });
     const gptChat = await gptClient.chat.completions.create({
       model: 'gpt-3.5-turbo',
