@@ -1,8 +1,8 @@
 import shaqModel from "../../models/shaqschema.js";
-console.log("Schema sync has begun.");
+console.log("Synching: DNB_DB...");
 
 export default async (client, member) => {
-  console.log("Building a new profile..." + JSON.stringify(client).length);
+  console.log("Building: new profile on BND_DB..." + JSON.stringify(client).length);
   var profile =  await shaqModel.create({
     userName: member.author.username,
     userId: member.author.id,

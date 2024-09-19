@@ -22,7 +22,7 @@ mongoose.connect(mongodb_srv, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
-  console.log("connected to DB BND");
+  console.log("Connected: BND_DB...");
 }).catch((err) => {
   console.log(err);
 });

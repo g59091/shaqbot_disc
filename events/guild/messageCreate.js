@@ -12,7 +12,7 @@ export default async (client, message) => {
   try {
     profileInfo = await shaqModel.findOne({ userId: message.author.id });
     if (!profileInfo) {     
-      console.log("building a new profile model");
+      console.log("Building: new profile on BND_DB...");
       //console.log(message.author);
       var profileNew = await shaqModel.create({ 
         userName: message.author.username,
