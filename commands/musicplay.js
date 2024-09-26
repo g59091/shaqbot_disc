@@ -51,7 +51,6 @@ export default {
         }
         var videoFind = await videoFinder(args.join(' '));
         if (!videoFind) return message.channel.send('No video results found');
-
         song = { title: videoFind.title, url: videoFind.url};
       }
 

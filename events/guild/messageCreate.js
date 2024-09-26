@@ -82,6 +82,7 @@ export default async (client, message) => {
   // handle: passing the command parameter for music commands 
   try {
     const musicCommands = ["play", "skip", "stop"];
+    // const musicCommands = ["newplay", "newskip", "newstop"];
     if (musicCommands.includes(commandProvided))
       commandGet.execute(message, args, client, commandProvided, profileInfo);
     else
